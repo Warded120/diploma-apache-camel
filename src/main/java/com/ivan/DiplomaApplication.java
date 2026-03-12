@@ -2,9 +2,6 @@ package com.ivan;
 
 import org.apache.camel.main.Main;
 
-/**
- * Main class that boot the Camel application
- */
 public final class DiplomaApplication {
 
     private DiplomaApplication() {
