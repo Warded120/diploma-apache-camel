@@ -11,6 +11,7 @@ import static com.ivan.constants.RouteConstants.UPDATE_ORDER_ROUTE;
 public class OrdersRoute extends EndpointRouteBuilder {
     @Override
     public void configure() {
+        //TODO: add exception handling
         rest("/orders")
             .consumes("application/json")
             .get().to(direct(GET_ALL_ORDERS_ROUTE))
