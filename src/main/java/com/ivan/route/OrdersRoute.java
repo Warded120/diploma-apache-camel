@@ -11,17 +11,8 @@ import static com.ivan.constants.RouteConstants.UPDATE_ORDER_ROUTE;
 public class OrdersRoute extends EndpointRouteBuilder {
     @Override
     public void configure() {
-        restConfiguration()
-            .component("netty-http")
-            .host("localhost")
-            .port(8080)
-            .enableCORS(true)
-            .apiContextPath("/api-doc")
-            .apiProperty("api.title", "Orders API")
-            .apiProperty("api.version", "1.0.0")
-            .apiProperty("cors", "true");
-
         rest("/orders")
+            .consumes("application/json")
             .get().to(direct(GET_ALL_ORDERS_ROUTE))
             .get("/{id}").to(direct(GET_ORDER_BY_ID_ROUTE))
             .post().to(direct(CREATE_ORDER_ROUTE))

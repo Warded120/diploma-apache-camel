@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16.2
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: diploma
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: diploma
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U diploma -d diploma"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
