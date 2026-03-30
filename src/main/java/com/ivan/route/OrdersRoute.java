@@ -14,6 +14,7 @@ public class OrdersRoute extends EndpointRouteBuilder {
         //TODO: add exception handling
         rest("/orders")
             .consumes("application/json")
+            .produces("application/json")
             .get().to(direct(GET_ALL_ORDERS_ROUTE))
             .get("/{id}").to(direct(GET_ORDER_BY_ID_ROUTE))
             .post().to(direct(CREATE_ORDER_ROUTE))
