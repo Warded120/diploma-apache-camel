@@ -12,6 +12,9 @@ public class OrdersRoute extends EndpointRouteBuilder {
     @Override
     public void configure() {
         //TODO: add exception handling
+        //TODO: modify route to build a message and push it to kafka
+        // headers: action type (create, update, delete)
+        // payload: order itself, extend the order with different values
         rest("/orders")
             .consumes("application/json")
             .get().to(direct(GET_ALL_ORDERS_ROUTE))

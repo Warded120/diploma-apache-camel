@@ -11,5 +11,4 @@ public final class DiplomaApplication {
         Main main = new Main(DiplomaApplication.class);
         main.run(args);
     }
-
 }
