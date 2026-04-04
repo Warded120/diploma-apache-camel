@@ -15,11 +15,11 @@ public class UpdateOrderRoute extends EndpointRouteBuilder {
     public void configure() throws Exception {
         from(direct(UPDATE_ORDER_ROUTE))
             .routeId(UPDATE_ORDER_ROUTE_ID)
-                .log("Updating order...")
-                .unmarshal().json(JsonLibrary.Jackson, OrderDto.class)
-                .to(mapstruct(target(Order.class)))
-                .bean(SetOrderIdProcessor.class)
-                .to(jpa(target(Order.class)))
-                .marshal().json(JsonLibrary.Jackson, Order.class);
+            .transacted()
+            .log("Updating order...")
+            .unmarshal().json(JsonLibrary.Jackson, OrderDto.class)
+            .to(mapstruct(target(Order.class)))
+            .bean(SetOrderIdProcessor.class)
+            .to(jpa(target(Order.class)));
     }
 }

@@ -1,8 +1,10 @@
 package com.ivan.outbound.processor;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,8 +20,11 @@ public class JpaParametersProcessor implements Processor {
     }
 
     private static void setJpaParameters(Message in) {
-        if (in.getHeader(JPA_PARAMETER_ID) != null) {
-            in.setHeader(JPA_PARAMETERS, Map.of(JPA_PARAMETER_ID, (Long)in.getHeader(JPA_PARAMETER_ID)));
+        var jpaParams = new HashMap<String, Object>();
+        var idParameter = in.getHeader(JPA_PARAMETER_ID, Long.class);
+        if (idParameter != null) {
+            jpaParams.put(JPA_PARAMETER_ID, idParameter);
         }
+        in.setHeader(JPA_PARAMETERS, jpaParams);
     }
 }

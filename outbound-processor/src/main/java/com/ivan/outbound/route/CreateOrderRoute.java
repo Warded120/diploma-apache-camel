@@ -14,10 +14,10 @@ public class CreateOrderRoute extends EndpointRouteBuilder {
     public void configure() throws Exception {
         from(direct(CREATE_ORDER_ROUTE))
             .routeId(CREATE_ORDER_ROUTE_ID)
+            .transacted()
             .log("Creating order...")
             .unmarshal().json(JsonLibrary.Jackson, OrderDto.class)
             .to(mapstruct(target(Order.class)))
-            .to(jpa(target(Order.class)))
-            .marshal().json(JsonLibrary.Jackson, Order.class);
+            .to(jpa(target(Order.class)));
     }
 }

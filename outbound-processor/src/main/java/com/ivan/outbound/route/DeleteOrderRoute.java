@@ -15,11 +15,9 @@ public class DeleteOrderRoute extends EndpointRouteBuilder {
     public void configure() {
         from(direct(DELETE_ORDER_ROUTE))
             .routeId(DELETE_ORDER_ROUTE_ID)
-                .log("Deleting order by id...")
-                .bean(JpaParametersProcessor.class)
-                .process(exchange ->
-                        System.out.println("debug"))
-                .to(jpa(target(Order.class)).namedQuery(DELETE_BY_ID))
-                .marshal().json(JsonLibrary.Jackson, Order.class);
+            .transacted()
+            .log("Deleting order by id...")
+            .bean(JpaParametersProcessor.class)
+            .to(jpa(target(Order.class)).namedQuery(DELETE_BY_ID).useExecuteUpdate(true));
     }
 }

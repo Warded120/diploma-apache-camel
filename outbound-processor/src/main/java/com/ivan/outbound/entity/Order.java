@@ -18,8 +18,6 @@ import static com.ivan.outbound.constants.JpaConstants.FIND_BY_ID;
 @Getter
 @Setter
 @Table(name = "orders")
-@NamedQuery(name = FIND_BY_ID, query = "select o from Order o where o.id = :id")
-@NamedQuery(name = FIND_ALL, query = "select o from Order o")
 @NamedQuery(name = DELETE_BY_ID, query = "delete from Order o where o.id = :id")
 public class Order {
     @Id
