@@ -1,4 +1,4 @@
-package com.ivan.constants;
+package com.ivan.outbound.constants;
 
 public class JpaConstants {
     public static final String FIND_BY_ID = "findById";

@@ -12,6 +12,7 @@ import static com.ivan.inbound.constants.ExchangeConstants.HEADER_ACTION;
 public class OrderActionResolverProcessor implements Processor {
 
     private final OrderAction action;
+
     @Override
     public void process(Exchange exchange) {
         Optional.of(exchange)

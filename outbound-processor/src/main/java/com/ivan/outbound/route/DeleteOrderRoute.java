@@ -1,14 +1,14 @@
-package com.ivan.route;
+package com.ivan.outbound.route;
 
-import com.ivan.entity.Order;
-import com.ivan.processor.JpaParametersProcessor;
+import com.ivan.outbound.entity.Order;
+import com.ivan.outbound.processor.JpaParametersProcessor;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
-import static com.ivan.constants.JpaConstants.DELETE_BY_ID;
-import static com.ivan.constants.RouteConstants.DELETE_ORDER_ROUTE;
-import static com.ivan.constants.RouteConstants.DELETE_ORDER_ROUTE_ID;
-import static com.ivan.util.ClassUtil.target;
+import static com.ivan.outbound.constants.JpaConstants.DELETE_BY_ID;
+import static com.ivan.outbound.constants.RouteConstants.DELETE_ORDER_ROUTE;
+import static com.ivan.outbound.constants.RouteConstants.DELETE_ORDER_ROUTE_ID;
+import static com.ivan.outbound.util.ClassUtil.target;
 
 public class DeleteOrderRoute extends EndpointRouteBuilder {
     @Override
@@ -17,6 +17,8 @@ public class DeleteOrderRoute extends EndpointRouteBuilder {
             .routeId(DELETE_ORDER_ROUTE_ID)
                 .log("Deleting order by id...")
                 .bean(JpaParametersProcessor.class)
+                .process(exchange ->
+                        System.out.println("debug"))
                 .to(jpa(target(Order.class)).namedQuery(DELETE_BY_ID))
                 .marshal().json(JsonLibrary.Jackson, Order.class);
     }

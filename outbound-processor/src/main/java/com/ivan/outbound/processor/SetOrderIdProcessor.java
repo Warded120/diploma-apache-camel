@@ -1,12 +1,12 @@
-package com.ivan.processor;
+package com.ivan.outbound.processor;
 
-import com.ivan.entity.Order;
+import com.ivan.outbound.entity.Order;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import java.util.Optional;
 
-import static com.ivan.constants.JpaConstants.JPA_PARAMETER_ID;
+import static com.ivan.outbound.constants.JpaConstants.JPA_PARAMETER_ID;
 
 public class SetOrderIdProcessor implements Processor {
     @Override

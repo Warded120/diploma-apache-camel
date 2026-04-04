@@ -1,14 +1,14 @@
-package com.ivan.route;
+package com.ivan.outbound.route;
 
-import com.ivan.dto.OrderDto;
-import com.ivan.entity.Order;
-import com.ivan.processor.SetOrderIdProcessor;
+import com.ivan.outbound.dto.OrderDto;
+import com.ivan.outbound.entity.Order;
+import com.ivan.outbound.processor.SetOrderIdProcessor;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
-import static com.ivan.constants.RouteConstants.UPDATE_ORDER_ROUTE;
-import static com.ivan.constants.RouteConstants.UPDATE_ORDER_ROUTE_ID;
-import static com.ivan.util.ClassUtil.target;
+import static com.ivan.outbound.constants.RouteConstants.UPDATE_ORDER_ROUTE;
+import static com.ivan.outbound.constants.RouteConstants.UPDATE_ORDER_ROUTE_ID;
+import static com.ivan.outbound.util.ClassUtil.target;
 
 public class UpdateOrderRoute extends EndpointRouteBuilder {
     @Override
