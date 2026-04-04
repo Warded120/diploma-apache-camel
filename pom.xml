@@ -11,7 +11,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>outbound</module>
+        <module>inbound-processor</module>
+        <module>outbound-processor</module>
     </modules>
 
     <properties>
@@ -61,6 +62,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-componentdsl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-openapi-java</artifactId>
         </dependency>
         <dependency>
@@ -82,6 +87,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-kafka</artifactId>
         </dependency>
 
         <!-- External -->
@@ -164,7 +173,7 @@
                 <version>4.18.0</version>
                 <configuration>
                     <logClasspath>true</logClasspath>
-                    <mainClass>com.ivan.DiplomaApplication</mainClass>
+                    <mainClass>com.com.ivan.inbound.InboundProcessorApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
