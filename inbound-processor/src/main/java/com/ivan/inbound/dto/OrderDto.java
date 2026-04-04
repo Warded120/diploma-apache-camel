@@ -1,4 +1,4 @@
-package com.ivan.dto;
+package com.ivan.inbound.dto;
 
 public record OrderDto (
     String name,

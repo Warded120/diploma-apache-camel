@@ -1,4 +1,4 @@
-package com.ivan.util;
+package com.ivan.inbound.util;
 
 import lombok.experimental.UtilityClass;
 
