@@ -3,7 +3,7 @@ services:
     image: confluentinc/cp-kafka:8.1.0
     container_name: kafka
     networks:
-        - kafka_network
+        - main_network
     ports:
         - "9092:9092"
         - "9101:9101"
@@ -37,6 +37,8 @@ services:
       POSTGRES_USER: diploma
       POSTGRES_PASSWORD: password
       POSTGRES_DB: diploma
+    networks:
+        - main_network
     ports:
       - "5432:5432"
     healthcheck:
@@ -45,5 +47,35 @@ services:
       timeout: 5s
       retries: 5
 
+  inbound-processor:
+    build:
+      context: .
+      target: inbound-processor
+    image: inbound-processor:latest
+    depends_on:
+      - kafka
+      - postgres
+    networks:
+      - main_network
+    ports:
+      - "8081:8080"
+    environment:
+      APP_PROFILE: docker
+
+  outbound-processor:
+    build:
+      context: .
+      target: outbound-processor
+    image: outbound-processor:latest
+    depends_on:
+      - kafka
+      - postgres
+    networks:
+      - main_network
+    ports:
+      - "8082:8080"
+    environment:
+      APP_PROFILE: docker
+
 networks:
-  kafka_network:
+  main_network:
