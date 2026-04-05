@@ -8,7 +8,7 @@
         <class>com.ivan.outbound.entity.Order</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/diploma"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://postgres:5432/diploma"/>
             <property name="jakarta.persistence.jdbc.user" value="diploma"/>
             <property name="jakarta.persistence.jdbc.password" value="password"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
