@@ -12,11 +12,12 @@ RUN mvn -B clean package -DskipTests
 FROM amazoncorretto:21.0.10-alpine AS inbound-processor
 WORKDIR /app
 COPY --from=build /app/inbound-processor/target/inbound-processor-*.jar app.jar
+COPY --from=build /app/inbound-processor/target/lib ./lib
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 # Runtime image for outbound-processor
 FROM amazoncorretto:21.0.10-alpine AS outbound-processor
 WORKDIR /app
 COPY --from=build /app/outbound-processor/target/outbound-processor-*.jar app.jar
+COPY --from=build /app/outbound-processor/target/lib ./lib
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
