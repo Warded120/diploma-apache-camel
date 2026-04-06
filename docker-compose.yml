@@ -1,4 +1,34 @@
 services:
+  kafka:
+    image: confluentinc/cp-kafka:8.1.0
+    container_name: kafka
+    networks:
+        - main_network
+    ports:
+        - "9092:9092"
+        - "9101:9101"
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      CLUSTER_ID: FTU3DJFYATCWNT7FJ3M2P0
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092, PLAINTEXT_HOST://localhost:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_JMX_HOSTNAME: localhost
+      KAFKA_JMX_PORT: 9101
+      KAFKA_LISTENERS: PLAINTEXT://kafka:29092, CONTROLLER://kafka:29093, PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT, PLAINTEXT:PLAINTEXT, PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_NODE_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
   postgres:
     image: postgres:16.2
     container_name: postgres_db
@@ -7,15 +37,45 @@ services:
       POSTGRES_USER: diploma
       POSTGRES_PASSWORD: password
       POSTGRES_DB: diploma
+    networks:
+        - main_network
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U diploma -d diploma"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-volumes:
-  postgres_data:
+  inbound-processor:
+    build:
+      context: .
+      target: inbound-processor
+    image: inbound-processor:latest
+    depends_on:
+      - kafka
+      - postgres
+    networks:
+      - main_network
+    ports:
+      - "8081:8080"
+    environment:
+      APP_PROFILE: docker
+
+  outbound-processor:
+    build:
+      context: .
+      target: outbound-processor
+    image: outbound-processor:latest
+    depends_on:
+      - kafka
+      - postgres
+    networks:
+      - main_network
+    ports:
+      - "8082:8080"
+    environment:
+      APP_PROFILE: docker
+
+networks:
+  main_network:

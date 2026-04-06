@@ -8,7 +8,12 @@
     <artifactId>diploma-apache-camel</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>inbound-processor</module>
+        <module>outbound-processor</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,7 +58,15 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-direct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-endpointdsl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-componentdsl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -78,6 +91,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-kafka</artifactId>
         </dependency>
 
         <!-- External -->
@@ -160,7 +177,7 @@
                 <version>4.18.0</version>
                 <configuration>
                     <logClasspath>true</logClasspath>
-                    <mainClass>com.ivan.DiplomaApplication</mainClass>
+                    <mainClass>com.com.ivan.inbound.InboundProcessorApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
