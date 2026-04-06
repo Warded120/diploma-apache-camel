@@ -17,7 +17,7 @@ public class CreateOrderRoute extends EndpointRouteBuilder {
         //TODO: improve exception handling
         onException(Exception.class)
                 .handled(true)
-                .log("OR request does not have valid body...");
+                .log("request does not have valid body: ${body}, ${exception.message}");
 
         from(direct(CREATE_ORDER_ROUTE))
             .routeId(CREATE_ORDER_ROUTE_ID)

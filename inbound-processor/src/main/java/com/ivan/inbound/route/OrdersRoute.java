@@ -8,6 +8,7 @@ import static com.ivan.inbound.constants.RouteConstants.UPDATE_ORDER_ROUTE;
 import static org.apache.camel.LoggingLevel.ERROR;
 
 public class OrdersRoute extends EndpointRouteBuilder {
+
     @Override
     public void configure() {
 
