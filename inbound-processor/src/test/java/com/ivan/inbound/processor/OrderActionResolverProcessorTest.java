@@ -41,7 +41,7 @@ class OrderActionResolverProcessorTest {
 
         processor.process(exchange);
 
-        assertEquals(action.getAction(), exchange.getIn().getHeader(HEADER_ACTION, String.class));
+        assertEquals(action, exchange.getIn().getHeader(HEADER_ACTION, String.class));
     }
 
     public Stream<Arguments> actionsProvider() {
