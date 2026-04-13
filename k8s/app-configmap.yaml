@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: diploma-app
+data:
+  # Database connection
+  DB_HOST: "postgres"
+  DB_PORT: "5432"
+  DB_NAME: "diploma"
+  
+  # Kafka connection
+  KAFKA_BROKERS: "kafka:9092"
+  KAFKA_TOPIC: "topic-inbound-processor"
+  KAFKA_DLT_TOPIC: "topic-inbound-processor-dlt"
+
