@@ -37,9 +37,16 @@ spec:
             - name: KAFKA_NODE_ID
               value: "1"
             - name: KAFKA_ADVERTISED_LISTENERS
-              value: "PLAINTEXT://localhost:9092"
+              value: "PLAINTEXT://kafka:9092"
             - name: KAFKA_LOG_DIRS
               value: "/var/lib/kafka/data"
+            - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+              value: "1"
+            - name: KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
+              value: "1"
+            - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
+              value: "1"
+
       volumes:
         - name: kafka-storage
           persistentVolumeClaim:

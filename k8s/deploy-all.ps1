@@ -20,6 +20,17 @@ if ($Clean) {
     Start-Sleep -Seconds 10
 }
 
+Write-Host "`n[0/6] reloading images..." -ForegroundColor Green
+cd ../
+docker compose build
+Write-Host "`nRemoving old images..." -ForegroundColor Yellow
+minikube image rm inbound-processor:latest
+minikube image rm outbound-processor:latest
+Write-Host "`nLoading new images..." -ForegroundColor Yellow
+minikube image load inbound-processor:latest
+minikube image load outbound-processor:latest
+cd ./k8s
+
 # Step 1: Create Namespace
 Write-Host "`n[1/6] Creating namespace..." -ForegroundColor Green
 kubectl apply -f namespace.yaml
@@ -75,5 +86,6 @@ Write-Host "  View all resources:    kubectl get all -n $namespace" -ForegroundC
 Write-Host "  View logs (inbound):   kubectl logs -f deployment/inbound-processor -n $namespace" -ForegroundColor White
 Write-Host "  View logs (outbound):  kubectl logs -f deployment/outbound-processor -n $namespace" -ForegroundColor White
 Write-Host "  Port-forward inbound:  kubectl port-forward svc/inbound-processor 8080:8080 -n $namespace" -ForegroundColor White
+Write-Host "  Port-forward db:       kubectl port-forward svc/postgres 5432:5432 -n $namespace" -ForegroundColor White
 Write-Host "  Delete all:            kubectl delete namespace $namespace" -ForegroundColor White
 

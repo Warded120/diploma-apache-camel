@@ -11,6 +11,4 @@ data:
   
   # Kafka connection
   KAFKA_BROKERS: "kafka:9092"
-  KAFKA_TOPIC: "topic-inbound-processor"
-  KAFKA_DLT_TOPIC: "topic-inbound-processor-dlt"
 

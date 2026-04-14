@@ -26,6 +26,6 @@ public class CreateOrderRoute extends EndpointRouteBuilder {
             .process(new OrderActionResolverProcessor(CREATE))
             .marshal().json(JsonLibrary.Jackson)
             .to(kafka("{{kafka.topic}}"))
-            .log("Order creation request sent to Kafka");
+            .log("Sent message to Kafka topic: ${header[kafka.TOPIC]}");
     }
 }
