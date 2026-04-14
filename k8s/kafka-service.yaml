@@ -6,10 +6,14 @@ metadata:
   labels:
     app: kafka
 spec:
-  type: ClusterIP
   ports:
-    - port: 29092
-      targetPort: 29092
-      name: internal
+    - name: kafka
+      protocol: TCP
+      port: 9092
+      targetPort: 9092
+    - name: controller
+      protocol: TCP
+      port: 9093
+      targetPort: 9093
   selector:
     app: kafka

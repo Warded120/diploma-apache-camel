@@ -22,10 +22,26 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: APP_PROFILE
-              value: "kubernetes"
-            - name: KAFKA_GROUP_ID
-              value: "outbound-processor-group"
+            - name: KAFKA_BROKERS
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KAFKA_BROKERS
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_PORT
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_NAME
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
