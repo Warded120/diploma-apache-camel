@@ -1,0 +1,49 @@
+# Default values for inbound-processor
+replicaCount: 1
+
+image:
+  repository: inbound-processor
+  tag: latest
+  pullPolicy: Never
+
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 30081
+
+# Database configuration (Bitnami PostgreSQL chart service name)
+db:
+  host: diploma-postgresql
+  port: "5432"
+  name: diploma
+  secretName: diploma-postgresql
+
+# Kafka configuration (Bitnami Kafka chart service name)
+kafka:
+  brokers: diploma-kafka:9092
+  topic: topic-inbound-processor
+  dltTopic: topic-inbound-processor-dlt
+
+# Resource limits and requests
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+# Probes configuration
+readinessProbe:
+  path: /q/health/ready
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+livenessProbe:
+  path: /q/health/live
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 10
+  failureThreshold: 3
