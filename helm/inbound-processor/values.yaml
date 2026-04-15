@@ -11,18 +11,10 @@ service:
   port: 8080
   nodePort: 30081
 
-# Database configuration (Bitnami PostgreSQL chart service name)
-db:
-  host: diploma-postgresql
-  port: "5432"
-  name: diploma
-  secretName: diploma-postgresql
-
 # Kafka configuration (Bitnami Kafka chart service name)
 kafka:
+  host: diploma-kafka
   brokers: diploma-kafka:9092
-  topic: topic-inbound-processor
-  dltTopic: topic-inbound-processor-dlt
 
 # Resource limits and requests
 resources:

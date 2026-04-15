@@ -18,11 +18,20 @@ kubectl create namespace $Namespace --dry-run=client -o yaml | kubectl apply -f 
 # Add Bitnami repo
 Write-Host "`n[2/5] Adding Bitnami Helm repository..." -ForegroundColor Yellow
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo add confluentinc https://confluent.io
+helm repo add kubelauncher https://kubelauncher.github.io/charts
 helm repo update
 
+# Deploy Kafka using Bitnami chart
+Write-Host "`n[3/5] Deploying Kafka..." -ForegroundColor Yellow
+helm upgrade --install $ReleaseName-kafka kubelauncher/kafka `
+    --namespace $Namespace `
+    --set kafka.replicaCount=1 `
+    --set zookeeper.replicaCount=1 `
+    --set persistence.size=1Gi `
+    --wait --timeout 5m
+
 # Deploy PostgreSQL using Bitnami chart
-Write-Host "`n[3/5] Deploying PostgreSQL..." -ForegroundColor Yellow
+Write-Host "`n[4/5] Deploying PostgreSQL..." -ForegroundColor Yellow
 helm upgrade --install $ReleaseName-postgresql bitnami/postgresql `
     --namespace $Namespace `
     --set auth.postgresPassword=password `
@@ -30,17 +39,6 @@ helm upgrade --install $ReleaseName-postgresql bitnami/postgresql `
     --set auth.password=password `
     --set auth.database=diploma `
     --set primary.persistence.size=1Gi `
-    --wait --timeout 5m
-
-# Deploy Kafka using Bitnami chart
-Write-Host "`n[4/5] Deploying Kafka..." -ForegroundColor Yellow
-helm upgrade --install "$ReleaseName-kafka" confluentinc/cp-kafka `
-    --namespace $Namespace `
-    --set cp-zookeeper.enabled=true `
-    --set cp-zookeeper.servers=1 `
-    --set brokers=1 `
-    --set persistence.size=1Gi `
-    --set jmx.port=5555 `
     --wait --timeout 5m
 
 # Deploy application components
