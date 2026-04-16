@@ -7,9 +7,7 @@ image:
   pullPolicy: Never
 
 service:
-  type: NodePort
   port: 8080
-  nodePort: 30081
 
 # Kafka configuration (Bitnami Kafka chart service name)
 kafka:

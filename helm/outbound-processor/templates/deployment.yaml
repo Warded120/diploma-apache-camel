@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "outbound-processor.chart" . }}
+  name: {{ include "outbound-processor.fullname" . }}
   labels:
     {{- include "outbound-processor.labels" . | nindent 4 }}
 spec:
