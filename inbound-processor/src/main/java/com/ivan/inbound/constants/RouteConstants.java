@@ -13,6 +13,8 @@ public class RouteConstants {
     public static final String DELETE_ORDER_ROUTE = "delete-order-route";
     public static final String DELETE_ORDER_ROUTE_ID = routeId(DELETE_ORDER_ROUTE);
 
+    public static final String ORDER_DTO_VALIDATOR = "orderDtoValidator";
+
     private static String routeId(String routeName) {
         return routeName + "-id";
     }

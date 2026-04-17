@@ -1,7 +1,7 @@
 package com.ivan.outbound.mapper;
 
-import com.ivan.outbound.dto.OrderDto;
 import com.ivan.outbound.entity.Order;
+import com.ivan.outbound.message.OrderMessage;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,5 +9,5 @@ import org.mapstruct.Mapping;
 public abstract class OrderMapper {
 
     @Mapping(target = "id", ignore = true)
-    public abstract Order map(OrderDto orderDto);
+    public abstract Order map(OrderMessage orderDto);
 }

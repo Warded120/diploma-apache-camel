@@ -1,6 +1,5 @@
 package com.ivan.outbound.route;
 
-import com.ivan.outbound.enumeration.OrderAction;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
 import static com.ivan.outbound.constants.ExchangeConstants.HEADER_ACTION;
@@ -11,7 +10,7 @@ import static com.ivan.outbound.enumeration.OrderAction.CREATE;
 import static com.ivan.outbound.enumeration.OrderAction.DELETE;
 import static com.ivan.outbound.enumeration.OrderAction.UPDATE;
 
-public class OrdersRoute extends EndpointRouteBuilder {
+public class OrderConsumerRoute extends EndpointRouteBuilder {
 
     @Override
     public void configure() {
@@ -19,6 +18,7 @@ public class OrdersRoute extends EndpointRouteBuilder {
         // get the action type from headers and handle message
         // think of creative ways to handle message
        from(kafka("{{kafka.topic}}").groupId("{{kafka.group-id}}"))
+               .log("Consuming message with offset ${header[kafka.OFFSET]}")
        .choice()
          .when(header(HEADER_ACTION).isEqualTo(CREATE.getAction()))
            .to(direct(CREATE_ORDER_ROUTE))

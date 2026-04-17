@@ -19,10 +19,6 @@ public class OrdersRoute extends EndpointRouteBuilder {
                 .setHeader("error", simple("${exception.message}"))
                 .to(kafka("{{kafka.dead-letter-topic}}"));
 
-        //TODO: remove database and jpa
-        //TODO: modify route to build a message and push it to kafka
-        // headers: action type (create, update, delete)
-        // payload: order itself, extend the order with different values
         rest("/orders")
             .consumes("application/json")
             .produces("application/json")

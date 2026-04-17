@@ -1,18 +1,24 @@
 package com.ivan.outbound.entity;
 
+import com.ivan.outbound.enumeration.OrderType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
+
 import static com.ivan.outbound.constants.JpaConstants.DELETE_BY_ID;
-import static com.ivan.outbound.constants.JpaConstants.FIND_ALL;
-import static com.ivan.outbound.constants.JpaConstants.FIND_BY_ID;
 
 @Entity
 @Getter
@@ -20,16 +26,27 @@ import static com.ivan.outbound.constants.JpaConstants.FIND_BY_ID;
 @Table(name = "orders")
 @NamedQuery(name = DELETE_BY_ID, query = "delete from Order o where o.id = :id")
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
-    @Column(name = "quantity")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    private String name;
     private int quantity;
 
-    @Column(name = "price")
-    private double price;
+    private double priceUsd; //TODO -10% if firstPurchase is true
+
+    @Enumerated(EnumType.STRING)
+    private OrderType type;
+
+    private String shippingAddress;
+    private boolean firstPurchaseDiscountApplied;
 }

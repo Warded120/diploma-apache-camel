@@ -1,7 +1,7 @@
 package com.ivan.outbound.route;
 
-import com.ivan.outbound.dto.OrderDto;
 import com.ivan.outbound.entity.Order;
+import com.ivan.outbound.message.OrderMessage;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
@@ -16,7 +16,7 @@ public class CreateOrderRoute extends EndpointRouteBuilder {
             .routeId(CREATE_ORDER_ROUTE_ID)
             .transacted()
             .log("Creating order...")
-            .unmarshal().json(JsonLibrary.Jackson, OrderDto.class)
+            .unmarshal().json(JsonLibrary.Jackson, OrderMessage.class)
             .to(mapstruct(target(Order.class)))
             .to(jpa(target(Order.class)));
     }
