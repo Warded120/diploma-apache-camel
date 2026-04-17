@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "name": "OrderMessage",
+  "namespace": "com.ivan.avro",
+  "fields": [
+    {"name": "cid",  "type": "string",  "doc": "customerId"},
+    {"name": "pid",  "type": "string",  "doc": "productId"},
+    {"name": "nm",   "type": "string",  "doc": "name"},
+    {"name": "qty",  "type": "int",     "doc": "quantity"},
+    {"name": "pr",   "type": "double",  "doc": "original price"},
+    {"name": "cur",  "type": "string",  "doc": "original currency"},
+    {"name": "tp",   "type": "int",     "doc": "OrderType byte code — compact category encoding"},
+    {"name": "addr", "type": "string",  "doc": "shippingAddress"},
+    {"name": "fp",   "type": "boolean", "doc": "firstPurchase"}
+  ]
+}
+

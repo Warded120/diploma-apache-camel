@@ -1,7 +1,7 @@
 package com.ivan.inbound.route;
 
+import com.ivan.avro.OrderMessage;
 import com.ivan.inbound.dto.OrderDto;
-import com.ivan.inbound.message.OrderMessage;
 import com.ivan.inbound.processor.ValidationErrorHandlerProcessor;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.component.bean.validator.BeanValidationException;
@@ -33,7 +33,6 @@ public class UpdateOrderRoute extends EndpointRouteBuilder {
                 .unmarshal().json(JsonLibrary.Jackson, OrderDto.class)
                 .to(beanValidator(ORDER_DTO_VALIDATOR))
                 .to(mapstruct(target(OrderMessage.class)))
-                .marshal().json(JsonLibrary.Jackson)
                 .removeHeaders("*", HEADER_ID)
                 .setHeader(HEADER_ACTION, constant(UPDATE.getAction()))
                 .to(kafka("{{kafka.topic}}"))

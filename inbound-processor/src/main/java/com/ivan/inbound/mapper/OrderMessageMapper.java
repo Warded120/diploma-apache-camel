@@ -1,8 +1,8 @@
 package com.ivan.inbound.mapper;
 
+import com.ivan.avro.OrderMessage;
 import com.ivan.inbound.dto.OrderDto;
 import com.ivan.inbound.enumeration.OrderType;
-import com.ivan.inbound.message.OrderMessage;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,8 +19,7 @@ public abstract class OrderMessageMapper {
     @Mapping(target = "fp", source = "firstPurchase")
     public abstract OrderMessage map(OrderDto orderDto);
 
-    protected byte mapOderType(String code) {
+    protected int mapOderType(String code) {
         return OrderType.fromCode(code);
     }
 }
-

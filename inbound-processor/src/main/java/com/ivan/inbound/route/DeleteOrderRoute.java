@@ -19,6 +19,7 @@ public class DeleteOrderRoute extends EndpointRouteBuilder {
             .routeId(DELETE_ORDER_ROUTE_ID)
                 .removeHeaders("*", HEADER_ID)
                 .setHeader(HEADER_ACTION, constant(DELETE.getAction()))
+                .setBody(constant(null))
                 .to(kafka("{{kafka.topic}}"))
                 .setBody(simple("Order delete request is created"))
                 .log("Order delete request sent to Kafka");
