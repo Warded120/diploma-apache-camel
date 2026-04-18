@@ -14,9 +14,6 @@ public class OrderConsumerRoute extends EndpointRouteBuilder {
 
     @Override
     public void configure() {
-        //TODO: modify route to consume from Kafka
-        // get the action type from headers and handle message
-        // think of creative ways to handle message
        from(kafka("{{kafka.topic}}").groupId("{{kafka.group-id}}"))
                .log("Consuming message with offset ${header[kafka.OFFSET]}")
        .choice()
