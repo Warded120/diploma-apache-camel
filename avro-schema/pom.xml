@@ -9,6 +9,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <!-- TODO: extract all common classes from inbound/outbound into this module -->
+    <!-- TODO: rename to 'commons' or so -->
     <artifactId>avro-schema</artifactId>
 
     <properties>

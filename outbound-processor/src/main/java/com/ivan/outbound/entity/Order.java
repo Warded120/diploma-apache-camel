@@ -40,13 +40,13 @@ public class Order {
     private Product product;
 
     private String name;
-    private int quantity;
+    private Integer quantity;
 
-    private double priceUsd; //TODO -10% if firstPurchase is true
+    private Double priceUsd; //TODO -10% if firstPurchase is true
 
     @Enumerated(EnumType.STRING)
     private OrderType type;
 
     private String shippingAddress;
-    private boolean firstPurchaseDiscountApplied;
+    private Boolean firstPurchaseDiscountApplied;
 }
