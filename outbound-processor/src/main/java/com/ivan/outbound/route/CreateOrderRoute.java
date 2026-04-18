@@ -5,8 +5,6 @@ import com.ivan.outbound.processor.EnricherProcessor;
 import com.ivan.outbound.processor.ResolveCustomerProcessor;
 import com.ivan.outbound.processor.ResolveProductProcessor;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.PersistenceException;
-import lombok.RequiredArgsConstructor;
 import org.apache.camel.BeanInject;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 

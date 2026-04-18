@@ -4,7 +4,6 @@ import com.ivan.outbound.processor.ResolveCustomerProcessor;
 import com.ivan.outbound.processor.ResolveProductProcessor;
 import com.ivan.outbound.repository.CustomerRepo;
 import com.ivan.outbound.repository.ProductRepo;
-import com.ivan.outbound.route.CreateOrderRoute;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.apache.camel.BindToRegistry;

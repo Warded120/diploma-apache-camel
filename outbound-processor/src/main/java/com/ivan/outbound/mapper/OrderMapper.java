@@ -3,8 +3,6 @@ package com.ivan.outbound.mapper;
 import com.ivan.avro.OrderMessage;
 import com.ivan.outbound.entity.Order;
 import com.ivan.outbound.enumeration.OrderType;
-import org.apache.camel.Exchange;
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
