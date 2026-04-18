@@ -3,8 +3,8 @@
   "name": "OrderMessage",
   "namespace": "com.ivan.avro",
   "fields": [
-    {"name": "cid",  "type": "string",  "doc": "customerId"},
-    {"name": "pid",  "type": "string",  "doc": "productId"},
+    {"name": "cid",  "type": "long",  "doc": "customerId"},
+    {"name": "pid",  "type": "long",  "doc": "productId"},
     {"name": "nm",   "type": "string",  "doc": "name"},
     {"name": "qty",  "type": "int",     "doc": "quantity"},
     {"name": "pr",   "type": "double",  "doc": "original price"},

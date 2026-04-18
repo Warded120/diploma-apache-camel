@@ -6,23 +6,23 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record OrderDto(
-        @NotBlank(message = "cannot be blank")
         @NotNull(message = "cannot be null")
-        String customerId,
+        Long customerId,
 
-        @NotBlank(message = "cannot be blank")
         @NotNull(message = "cannot be null")
-        String productId,
+        Long productId,
 
         @NotBlank(message = "cannot be blank")
         @NotNull(message = "cannot be null")
         String name,
 
+        @NotNull(message = "cannot be null")
         @Positive(message = "must be positive")
-        int quantity,
+        Integer quantity,
 
+        @NotNull(message = "cannot be null")
         @Positive(message = "must be positive")
-        double price,
+        Double price,
 
         @ValidCurrency
         String currency,
@@ -35,5 +35,6 @@ public record OrderDto(
         @NotNull(message = "cannot be null")
         String shippingAddress,
 
-        boolean firstPurchase
+        @NotNull(message = "cannot be null")
+        Boolean firstPurchase
 ) {}

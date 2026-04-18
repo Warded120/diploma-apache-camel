@@ -1,5 +1,7 @@
 package com.ivan.inbound.enumeration;
 
+import java.util.Arrays;
+
 public enum OrderType {
 
     ELECTRONICS("electronics", 1),
@@ -18,11 +20,10 @@ public enum OrderType {
     }
 
     public static int fromCode(String code) {
-        for (OrderType orderType : OrderType.values()) {
-            if (orderType.code.equals(code)) {
-                return orderType.byteCode;
-            }
-        }
-        throw new IllegalArgumentException("Unknown OrderType code: " + code);
+        return Arrays.stream(OrderType.values())
+                .filter(orderType -> orderType.code.equals(code))
+                .findFirst()
+                .map(orderType -> orderType.byteCode)
+                .orElseThrow(() -> new IllegalArgumentException("Unknown OrderType code: " + code));
     }
 }

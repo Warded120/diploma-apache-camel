@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>avro-schema</module>
         <module>inbound-processor</module>
         <module>outbound-processor</module>
     </modules>
@@ -19,7 +20,28 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <log4j2-version>2.22.1</log4j2-version>
+        <avro.version>1.11.3</avro.version>
+        <confluent.version>7.6.0</confluent.version>
+        <jackson.version>2.17.2</jackson.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <name>Confluent Maven Repository</name>
+            <url>https://packages.confluent.io/maven/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>confluent</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
@@ -30,6 +52,31 @@
                 <version>4.14.0</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <!-- Jackson BOM — pinned to override older version pulled by Confluent -->
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- Avro Schema (shared generated classes) -->
+            <dependency>
+                <groupId>com.ivan</groupId>
+                <artifactId>avro-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Avro -->
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-avro-serializer</artifactId>
+                <version>${confluent.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -126,6 +173,16 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Avro -->
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -187,6 +244,25 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.5.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.avro</groupId>
+                    <artifactId>avro-maven-plugin</artifactId>
+                    <version>${avro.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-avro-sources</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>schema</goal>
+                            </goals>
+                            <configuration>
+                                <sourceDirectory>${project.basedir}/src/main/avro</sourceDirectory>
+                                <outputDirectory>${project.build.directory}/generated-sources/avro</outputDirectory>
+                                <stringType>String</stringType>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
