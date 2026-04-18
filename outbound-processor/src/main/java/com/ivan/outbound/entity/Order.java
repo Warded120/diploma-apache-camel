@@ -28,17 +28,17 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id") //TODO: nullable = false
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "product_id") //TODO: nullable = false
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     private String name;
     private Integer quantity;
 
-    private Double priceUsd; //TODO -10% if firstPurchase is true
+    private Double priceUsd; //TODO: add currency api
 
     @Enumerated(EnumType.STRING)
     private OrderType type;
