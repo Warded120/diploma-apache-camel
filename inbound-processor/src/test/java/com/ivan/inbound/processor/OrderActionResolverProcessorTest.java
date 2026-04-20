@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class OrderActionResolverProcessorTest {
+    //Test changes
     private OrderActionResolverProcessor processor;
     private CamelContext context;
     private Exchange exchange;
