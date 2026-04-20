@@ -71,5 +71,5 @@ Write-Host "`nTo access inbound-processor:"
 Write-Host "  minikube service $ReleaseName-inbound-inbound-processor -n $Namespace"
 
 Write-Host "`nUseful Commands:" -ForegroundColor Cyan
-Write-Host "  Port-forward inbound:  kubectl port-forward service/diploma-inbound-inbound-processor 8080:8080 -n $namespace" -ForegroundColor White
+Write-Host "  Port-forward inbound:  kubectl port-forward service/inbound-processor 8080:8080 -n $namespace" -ForegroundColor White
 Write-Host "  Port-forward db:       kubectl port-forward svc/diploma-postgresql 5432:5432 -n $namespace" -ForegroundColor White
