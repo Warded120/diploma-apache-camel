@@ -13,7 +13,7 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/diploma"/>
             <property name="jakarta.persistence.jdbc.user" value="diploma"/>
             <property name="jakarta.persistence.jdbc.password" value="password"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.show_sql" value="false"/>
         </properties>
     </persistence-unit>

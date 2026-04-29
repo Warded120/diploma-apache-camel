@@ -1,9 +1,6 @@
 package com.ivan.outbound.entity;
 
-import com.ivan.outbound.enumeration.OrderType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,13 +32,10 @@ public class Order {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    private String name;
     private Integer quantity;
 
-    private Double priceUsd; //TODO: add currency api
+    private Double priceUsd;
 
-    @Enumerated(EnumType.STRING)
-    private OrderType type;
 
     private String shippingAddress;
     private Boolean firstPurchaseDiscountApplied;

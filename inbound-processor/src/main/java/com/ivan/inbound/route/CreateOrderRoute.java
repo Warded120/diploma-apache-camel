@@ -26,6 +26,9 @@ public class CreateOrderRoute extends EndpointRouteBuilder {
 
         onException(Exception.class)
                 .handled(true)
+                //TODO: handle it properly
+                //[Camel (camel-1) thread #6 - NettyConsumerExecutorGroup] INFO  create-order-route-id - Exception occurred during order creation: Unrecognized field "name" (class com.ivan.inbound.dto.OrderDto), not marked as ignorable (7 known properties: "currency", "shippingAddress", "customerId", "productId", "quantity", "firstPurchase", "price"])
+                // at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 11, column: 2] (through reference chain: com.ivan.inbound.dto.OrderDto["name"])
                 .log("Exception occurred during order creation: ${exception.message}");
 
         from(direct(CREATE_ORDER_ROUTE))

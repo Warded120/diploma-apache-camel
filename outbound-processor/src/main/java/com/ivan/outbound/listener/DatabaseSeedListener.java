@@ -70,10 +70,6 @@ public class DatabaseSeedListener extends MainListenerSupport {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // CSV parsers
-    // -------------------------------------------------------------------------
-
     private List<Customer> loadCustomers() throws Exception {
         List<Customer> list = new ArrayList<>();
         try (BufferedReader reader = openCsv(CUSTOMERS_CSV)) {
@@ -104,22 +100,17 @@ public class DatabaseSeedListener extends MainListenerSupport {
             while ((line = reader.readLine()) != null) {
                 if (header) { header = false; continue; } // skip header row
                 String[] cols = splitCsvLine(line);
-                if (cols.length < 4) continue;
+                if (cols.length < 3) continue;
 
                 Product p = new Product();
                 p.setName(cols[0].trim());
                 p.setCategory(cols[1].trim());
                 p.setBrand(cols[2].trim());
-                p.setBasePrice(Double.parseDouble(cols[3].trim()));
                 list.add(p);
             }
         }
         return list;
     }
-
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
 
     private BufferedReader openCsv(String resourcePath) {
         InputStream is = Thread.currentThread()
@@ -131,10 +122,6 @@ public class DatabaseSeedListener extends MainListenerSupport {
         return new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
     }
 
-    /**
-     * Splits a CSV line on commas, respecting fields that contain a comma
-     * inside double-quotes (e.g. address fields like "123 St, City, ST 00000").
-     */
     private String[] splitCsvLine(String line) {
         List<String> result = new ArrayList<>();
         boolean inQuotes = false;

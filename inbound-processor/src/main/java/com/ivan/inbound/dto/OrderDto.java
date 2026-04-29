@@ -12,10 +12,6 @@ public record OrderDto(
         @NotNull(message = "cannot be null")
         Long productId,
 
-        @NotBlank(message = "cannot be blank")
-        @NotNull(message = "cannot be null")
-        String name,
-
         @NotNull(message = "cannot be null")
         @Positive(message = "must be positive")
         Integer quantity,
@@ -26,10 +22,6 @@ public record OrderDto(
 
         @ValidCurrency
         String currency,
-
-        @NotBlank(message = "cannot be blank")
-        @NotNull(message = "cannot be null")
-        String type,
 
         @NotBlank(message = "cannot be blank")
         @NotNull(message = "cannot be null")
