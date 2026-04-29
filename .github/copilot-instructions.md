@@ -218,7 +218,7 @@ Defined in `ExchangeConstants`:
 
 **persistence.xml** (`META-INF/persistence.xml`, persistence-unit name: `camel`):
 
-```xml
+```properties
 transaction-type="RESOURCE_LOCAL"
 provider: org.hibernate.jpa.HibernatePersistenceProvider
 jdbc.url: jdbc:postgresql://localhost:5432/diploma
