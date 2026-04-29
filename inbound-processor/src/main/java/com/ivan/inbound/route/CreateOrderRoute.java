@@ -8,8 +8,6 @@ import org.apache.camel.component.bean.validator.BeanValidationException;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
 import static com.ivan.inbound.constants.ExchangeConstants.HEADER_ACTION;
-import static com.ivan.inbound.constants.ExchangeConstants.HEADER_CREATE_CUSTOMER;
-import static com.ivan.inbound.constants.ExchangeConstants.HEADER_CREATE_PRODUCT;
 import static com.ivan.inbound.constants.RouteConstants.CREATE_ORDER_ROUTE;
 import static com.ivan.inbound.constants.RouteConstants.CREATE_ORDER_ROUTE_ID;
 import static com.ivan.inbound.constants.RouteConstants.ORDER_DTO_VALIDATOR;
@@ -35,7 +33,7 @@ public class CreateOrderRoute extends EndpointRouteBuilder {
             .unmarshal().json(JsonLibrary.Jackson, OrderDto.class)
             .to(beanValidator(ORDER_DTO_VALIDATOR))
             .to(mapstruct(target(OrderMessage.class)))
-            .removeHeaders("*", HEADER_CREATE_CUSTOMER, HEADER_CREATE_PRODUCT)
+            .removeHeaders("*")
             .setHeader(HEADER_ACTION, constant(CREATE.getAction()))
             .to(kafka("{{kafka.topic}}"))
             .setBody(simple("Order request is created"))

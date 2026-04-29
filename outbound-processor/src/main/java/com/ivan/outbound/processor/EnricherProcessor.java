@@ -7,6 +7,7 @@ import org.apache.camel.Exchange;
 
 import java.util.Optional;
 
+import static com.ivan.outbound.constants.ExchangeConstants.HEADER_PRICE_USD;
 import static com.ivan.outbound.constants.ExchangeConstants.PROP_CUSTOMER;
 import static com.ivan.outbound.constants.ExchangeConstants.PROP_PRODUCT;
 
@@ -20,6 +21,7 @@ public class EnricherProcessor implements org.apache.camel.Processor {
 
         order.setCustomer(getCustomer(exchange));
         order.setProduct(getProduct(exchange));
+        order.setPriceUsd(exchange.getIn().getHeader(HEADER_PRICE_USD, Double.class));
     }
 
     public Customer getCustomer(Exchange exchange) {

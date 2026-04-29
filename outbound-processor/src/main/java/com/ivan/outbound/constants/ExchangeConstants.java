@@ -8,6 +8,10 @@ public class ExchangeConstants {
 
     public static final String PROP_CUSTOMER = "customer";
     public static final String PROP_PRODUCT  = "product";
+    public static final String PROP_ORDER_MESSAGE = "orderMessage";
+
+    public static final String HEADER_BASE_CURRENCY = "baseCurrency";
+    public static final String HEADER_PRICE_USD     = "priceUsd";
 
     public static final double DISCOUNT = 0.1;
 }

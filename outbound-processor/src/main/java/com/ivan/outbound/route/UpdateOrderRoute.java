@@ -8,6 +8,7 @@ import com.ivan.outbound.processor.SetOrderIdProcessor;
 import org.apache.camel.BeanInject;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
+import static com.ivan.outbound.constants.RouteConstants.CURRENCY_ENRICHER_ROUTE;
 import static com.ivan.outbound.constants.RouteConstants.UPDATE_ORDER_ROUTE;
 import static com.ivan.outbound.constants.RouteConstants.UPDATE_ORDER_ROUTE_ID;
 import static com.ivan.outbound.util.ClassUtil.target;
@@ -28,6 +29,8 @@ public class UpdateOrderRoute extends EndpointRouteBuilder {
             .log("Updating order...")
             .process(resolveCustomerProcessor)
             .process(resolveProductProcessor)
+            // Fetch USD rate via cached enricher route; sets HEADER_PRICE_USD
+            .to(direct(CURRENCY_ENRICHER_ROUTE))
             .to(mapstruct(target(Order.class)))
             .process(new EnricherProcessor())
             .bean(SetOrderIdProcessor.class)

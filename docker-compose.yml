@@ -67,31 +67,5 @@ services:
       timeout: 5s
       retries: 5
 
-#  inbound-processor:
-#    build:
-#      context: .
-#      target: inbound-processor
-#    image: inbound-processor:latest
-#    depends_on:
-#      - kafka
-#      - postgres
-#    networks:
-#      - main_network
-#    ports:
-#      - "8081:8080"
-#
-#  outbound-processor:
-#    build:
-#      context: .
-#      target: outbound-processor
-#    image: outbound-processor:latest
-#    depends_on:
-#      - kafka
-#      - postgres
-#    networks:
-#      - main_network
-#    ports:
-#      - "8082:8080"
-
 networks:
   main_network:

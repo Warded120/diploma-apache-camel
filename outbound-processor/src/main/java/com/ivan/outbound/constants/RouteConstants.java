@@ -13,6 +13,9 @@ public class RouteConstants {
     public static final String DELETE_ORDER_ROUTE = "delete-order-route";
     public static final String DELETE_ORDER_ROUTE_ID = routeId(DELETE_ORDER_ROUTE);
 
+    public static final String CURRENCY_ENRICHER_ROUTE = "currency-enricher-route";
+    public static final String CURRENCY_ENRICHER_ROUTE_ID = routeId(CURRENCY_ENRICHER_ROUTE);
+
     private static String routeId(String routeName) {
         return routeName + "-id";
     }

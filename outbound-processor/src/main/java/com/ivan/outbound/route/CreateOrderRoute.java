@@ -10,6 +10,7 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
 import static com.ivan.outbound.constants.RouteConstants.CREATE_ORDER_ROUTE;
 import static com.ivan.outbound.constants.RouteConstants.CREATE_ORDER_ROUTE_ID;
+import static com.ivan.outbound.constants.RouteConstants.CURRENCY_ENRICHER_ROUTE;
 import static com.ivan.outbound.util.ClassUtil.target;
 
 public class CreateOrderRoute extends EndpointRouteBuilder {
@@ -32,6 +33,7 @@ public class CreateOrderRoute extends EndpointRouteBuilder {
             .log("Creating order...")
             .process(resolveCustomerProcessor)
             .process(resolveProductProcessor)
+            .to(direct(CURRENCY_ENRICHER_ROUTE))
             .to(mapstruct(target(Order.class)))
             .process(new EnricherProcessor())
             .to(jpa(target(Order.class)));
