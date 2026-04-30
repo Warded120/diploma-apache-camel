@@ -3,8 +3,6 @@ package com.ivan.outbound.config;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.Configuration;
 import org.apache.camel.component.jcache.policy.JCachePolicy;
-import org.apache.camel.language.simple.SimpleLanguage;
-
 import javax.cache.Cache;
 import javax.cache.CacheException;
 import javax.cache.CacheManager;
