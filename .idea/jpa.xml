@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="PersistenceUnitSettings">
-    <persistence-units>
-      <persistence-unit moduleName="diploma-apache-camel" name="camel" framework="JPA" ormUnit="diploma-apache-camel:camel" defaultDataSourceId="7ca09a19-4d6e-45f4-a4fc-440c12cd6dfb" />
-    </persistence-units>
-  </component>
-</project>
