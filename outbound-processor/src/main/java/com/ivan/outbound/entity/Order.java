@@ -1,5 +1,6 @@
 package com.ivan.outbound.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -32,11 +34,15 @@ public class Order {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @Column(name = "quantity")
     private Integer quantity;
 
+    @Column(name = "price_usd")
     private Double priceUsd;
 
-
+    @Column(name = "shipping_address")
     private String shippingAddress;
-    private Boolean firstPurchaseDiscountApplied;
+
+    @Column(name = "first_purchase")
+    private Boolean firstPurchase;
 }

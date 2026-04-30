@@ -2,7 +2,9 @@ package com.ivan.outbound.config;
 
 import com.ivan.outbound.processor.ResolveCustomerProcessor;
 import com.ivan.outbound.processor.ResolveProductProcessor;
+import com.ivan.outbound.processor.ValidateOrderExistsProcessor;
 import com.ivan.outbound.repository.CustomerRepo;
+import com.ivan.outbound.repository.OrderRepo;
 import com.ivan.outbound.repository.ProductRepo;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -45,6 +47,11 @@ public class JpaConfig {
         return new ProductRepo(entityManagerFactory);
     }
 
+    @BindToRegistry("orderRepo")
+    public OrderRepo createOrderRepo(EntityManagerFactory entityManagerFactory) {
+        return new OrderRepo(entityManagerFactory);
+    }
+
     @BindToRegistry("resolveCustomerProcessor")
     public ResolveCustomerProcessor createResolveCustomerProcessor(CustomerRepo customerRepo) {
         return new ResolveCustomerProcessor(customerRepo);
@@ -53,5 +60,10 @@ public class JpaConfig {
     @BindToRegistry("resolveProductProcessor")
     public ResolveProductProcessor createResolveProductProcessor(ProductRepo productRepo) {
         return new ResolveProductProcessor(productRepo);
+    }
+
+    @BindToRegistry("validateOrderExistsProcessor")
+    public ValidateOrderExistsProcessor createValidateOrderExistsProcessor(OrderRepo orderRepo) {
+        return new ValidateOrderExistsProcessor(orderRepo);
     }
 }

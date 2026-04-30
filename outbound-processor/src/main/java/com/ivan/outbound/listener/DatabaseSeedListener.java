@@ -85,7 +85,7 @@ public class DatabaseSeedListener extends MainListenerSupport {
                 c.setLastName(cols[1].trim());
                 c.setEmail(cols[2].trim());
                 c.setPhone(cols[3].trim());
-                c.setDefaultShippingAddress(cols[4].trim());
+                c.setShippingAddress(cols[4].trim());
                 list.add(c);
             }
         }

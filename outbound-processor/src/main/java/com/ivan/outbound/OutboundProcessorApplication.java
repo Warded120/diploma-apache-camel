@@ -6,6 +6,7 @@ import org.apache.camel.main.Main;
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public final class OutboundProcessorApplication {
 
+    //TODO: add proper logging for routes
     public static void main(String[] args) throws Exception {
         Main main = new Main(OutboundProcessorApplication.class);
         main.run(args);

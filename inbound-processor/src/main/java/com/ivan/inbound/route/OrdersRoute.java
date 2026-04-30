@@ -1,5 +1,6 @@
 package com.ivan.inbound.route;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
 import static com.ivan.inbound.constants.RouteConstants.CREATE_ORDER_ROUTE;
@@ -14,10 +15,10 @@ public class OrdersRoute extends EndpointRouteBuilder {
 
         onException(Exception.class)
                 .handled(true)
-                .log(ERROR, "Error processing order request: ${exception.message}")
-                .log("Sending message to Kafka dead letter topic")
-                .setHeader("error", simple("${exception.message}"))
-                .to(kafka("{{kafka.dead-letter-topic}}"));
+                .log(ERROR, "Unexpected error processing order request: ${exception.message}")
+                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+                .setBody(constant("{\"error\":\"Internal server error\"}"));
 
         rest("/orders")
             .consumes("application/json")

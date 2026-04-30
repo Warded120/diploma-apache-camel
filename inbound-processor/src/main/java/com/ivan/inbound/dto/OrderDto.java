@@ -24,7 +24,6 @@ public record OrderDto(
         String currency,
 
         @NotBlank(message = "cannot be blank")
-        @NotNull(message = "cannot be null")
         String shippingAddress,
 
         @NotNull(message = "cannot be null")

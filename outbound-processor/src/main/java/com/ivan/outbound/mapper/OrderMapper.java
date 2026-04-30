@@ -14,6 +14,6 @@ public abstract class OrderMapper {
     @Mapping(target = "priceUsd", ignore = true)
     @Mapping(target = "quantity", source = "orderMessage.qty")
     @Mapping(target = "shippingAddress", source = "orderMessage.addr")
-    @Mapping(target = "firstPurchaseDiscountApplied", source = "orderMessage.fp")
+    @Mapping(target = "firstPurchase", source = "orderMessage.fp")
     public abstract Order map(OrderMessage orderMessage);
 }
