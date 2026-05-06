@@ -1,0 +1,39 @@
+# Default values for inbound-processor
+replicaCount: 1
+
+image:
+  repository: inbound-processor
+  tag: latest
+  pullPolicy: Never
+
+service:
+  port: 8080
+
+# Kafka configuration (Bitnami Kafka chart service name)
+kafka:
+  host: diploma-kafka
+  brokers: diploma-kafka:9092
+
+# Resource limits and requests
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+# Probes configuration
+readinessProbe:
+  path: /q/health/ready
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+livenessProbe:
+  path: /q/health/live
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 10
+  failureThreshold: 3
