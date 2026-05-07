@@ -1,0 +1,15 @@
+# Local state (intentionally kept here — do not commit if using remote state)
+# terraform.tfstate
+# terraform.tfstate.backup
+
+# Lock file (commit this to pin provider versions)
+# .terraform.lock.hcl
+
+# Provider binaries and cache
+.terraform/
+
+# Variable overrides that may contain secrets
+*.tfvars
+*.tfvars.json
+!example.tfvars
+

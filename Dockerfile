@@ -2,6 +2,8 @@
 FROM maven:3.9.7-amazoncorretto-21-al2023 AS build
 WORKDIR /app
 COPY pom.xml .
+COPY avro-schema/pom.xml avro-schema/pom.xml
+COPY avro-schema/src avro-schema/src
 COPY inbound-processor/pom.xml inbound-processor/pom.xml
 COPY outbound-processor/pom.xml outbound-processor/pom.xml
 COPY inbound-processor/src inbound-processor/src
