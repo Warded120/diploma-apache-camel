@@ -36,9 +36,9 @@ resource "kubernetes_secret" "postgres" {
   type = "Opaque"
 
   data = {
-    POSTGRES_USER     = base64encode(var.db_user)
-    POSTGRES_PASSWORD = base64encode(var.db_password)
-    POSTGRES_DB       = base64encode(var.db_name)
+    POSTGRES_USER     = var.db_user
+    POSTGRES_PASSWORD = var.db_password
+    POSTGRES_DB       = var.db_name
   }
 
   depends_on = [kubernetes_namespace.diploma]

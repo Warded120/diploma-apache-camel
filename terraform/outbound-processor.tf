@@ -43,7 +43,7 @@ resource "kubernetes_deployment" "outbound_processor" {
           image_pull_policy = "IfNotPresent"
 
           port {
-            container_port = 8080
+            container_port = 8081
           }
 
           # Inject individual DB keys from secret

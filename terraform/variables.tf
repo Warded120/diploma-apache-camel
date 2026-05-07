@@ -59,12 +59,12 @@ variable "schema_registry_chart_version" {
 variable "inbound_image" {
   description = "Docker image for inbound-processor"
   type        = string
-  default     = "inbound-processor:latest"
+  default     = "inbound-processor:diploma"
 }
 
 variable "outbound_image" {
   description = "Docker image for outbound-processor"
   type        = string
-  default     = "outbound-processor:latest"
+  default     = "outbound-processor:diploma"
 }
 

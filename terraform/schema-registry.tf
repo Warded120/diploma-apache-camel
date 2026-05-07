@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "schema_registry" {
           image_pull_policy = "IfNotPresent"
 
           port {
-            container_port = 8081
+            container_port = 8181
           }
 
           env {
