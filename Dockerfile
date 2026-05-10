@@ -8,7 +8,7 @@ COPY inbound-processor/pom.xml inbound-processor/pom.xml
 COPY outbound-processor/pom.xml outbound-processor/pom.xml
 COPY inbound-processor/src inbound-processor/src
 COPY outbound-processor/src outbound-processor/src
-RUN mvn -B clean package -DskipTests
+RUN mvn -B package -DskipTests
 
 # Runtime image for inbound-processor
 FROM amazoncorretto:21.0.10-alpine AS inbound-processor
