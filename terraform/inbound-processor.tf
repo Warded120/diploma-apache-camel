@@ -43,7 +43,7 @@ resource "kubernetes_deployment" "inbound_processor" {
           # Sourced from the Kafka Helm release
           env {
             name  = "KAFKA_BROKERS"
-            value = "${helm_release.kafka.name}:9092"
+            value = "${local.kafka_svc}:9092"
           }
           # Sourced from the Schema Registry K8s service
           env {
@@ -51,16 +51,9 @@ resource "kubernetes_deployment" "inbound_processor" {
             value = "http://${local.schema_registry_svc}:${local.schema_registry_port}"
           }
 
-          # Inject DB config from ConfigMap
-          env_from {
-            config_map_ref {
-              name = kubernetes_config_map.app_config.metadata[0].name
-            }
-          }
-
           readiness_probe {
             http_get {
-              path = "/q/health/ready"//TODO: use /observe
+              path = "/observe/health/ready"
               port = 8080
             }
             initial_delay_seconds = 30
@@ -71,7 +64,7 @@ resource "kubernetes_deployment" "inbound_processor" {
 
           liveness_probe {
             http_get {
-              path = "/q/health/live"//TODO: use /observe/health
+              path = "/observe/health/live"
               port = 8080
             }
             initial_delay_seconds = 60
@@ -97,8 +90,7 @@ resource "kubernetes_deployment" "inbound_processor" {
 
   depends_on = [
     helm_release.kafka,
-    kubernetes_config_map.app_config,
-    kubernetes_secret.postgres,
+    kubernetes_deployment.schema_registry,
   ]
 }
 

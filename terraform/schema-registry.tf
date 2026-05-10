@@ -40,7 +40,7 @@ resource "kubernetes_deployment" "schema_registry" {
           }
           env {
             name  = "SCHEMA_REGISTRY_LISTENERS"
-            value = "http://0.0.0.0:8081"
+            value = "http://0.0.0.0:8181"
           }
           env {
             name  = "SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS"
@@ -50,7 +50,7 @@ resource "kubernetes_deployment" "schema_registry" {
           readiness_probe {
             http_get {
               path = "/subjects"
-              port = 8081
+              port = 8181
             }
             initial_delay_seconds = 20
             period_seconds        = 10
@@ -87,7 +87,7 @@ resource "kubernetes_service" "schema_registry" {
 
     port {
       port        = local.schema_registry_port
-      target_port = 8081
+      target_port = 8181
       protocol    = "TCP"
     }
   }

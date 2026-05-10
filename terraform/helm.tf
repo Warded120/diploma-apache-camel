@@ -2,7 +2,7 @@ locals {
   kafka_svc             = "${var.release_name}-kafka"
   postgresql_svc        = "${var.release_name}-postgresql"
   schema_registry_svc   = "${var.release_name}-schema-registry"
-  schema_registry_port  = 8081
+  schema_registry_port  = 8181
 }
 
 # ── 1. Kafka ───────────────────────────────────────────────────────────────────

@@ -24,7 +24,6 @@ resource "kubernetes_deployment" "outbound_processor" {
       }
 
       spec {
-        # Wait for PostgreSQL then Kafka before starting the main container
         init_container {
           name    = "wait-for-postgres"
           image   = "busybox:1.36"
@@ -69,7 +68,7 @@ resource "kubernetes_deployment" "outbound_processor" {
           # Sourced from the Kafka Helm release
           env {
             name  = "KAFKA_BROKERS"
-            value = "${helm_release.kafka.name}:9092"
+            value = "${local.kafka_svc}:9092"
           }
           # Sourced from the Schema Registry K8s service
           env {
@@ -86,8 +85,8 @@ resource "kubernetes_deployment" "outbound_processor" {
 
           readiness_probe {
             http_get {
-              path = "/q/health/ready"//TODO: use /observe/health
-              port = 8080
+              path = "/observe/health/ready"
+              port = 8081
             }
             initial_delay_seconds = 30
             period_seconds        = 10
@@ -97,8 +96,8 @@ resource "kubernetes_deployment" "outbound_processor" {
 
           liveness_probe {
             http_get {
-              path = "/q/health/live"//TODO: use /observe/health
-              port = 8080
+              path = "/observe/health/live"
+              port = 8081
             }
             initial_delay_seconds = 60
             period_seconds        = 30
@@ -123,6 +122,8 @@ resource "kubernetes_deployment" "outbound_processor" {
 
   depends_on = [
     helm_release.kafka,
+    helm_release.postgresql,
+    kubernetes_deployment.schema_registry,
     kubernetes_config_map.app_config,
     kubernetes_secret.postgres,
   ]
