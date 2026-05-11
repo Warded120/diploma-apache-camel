@@ -5,6 +5,22 @@ locals {
   schema_registry_port  = 8181
 }
 
+resource "helm_release" "metrics_server" {
+  name             = "metrics-server"
+  repository       = "https://kubernetes-sigs.github.io/metrics-server/"
+  chart            = "metrics-server"
+  namespace        = "kube-system"
+  create_namespace = false
+  wait             = true
+  timeout          = 120
+
+  # Required for minikube / self-signed TLS kubelets
+  set {
+    name  = "args[0]"
+    value = "--kubelet-insecure-tls"
+  }
+}
+
 # ── 1. Kafka ───────────────────────────────────────────────────────────────────
 resource "helm_release" "kafka" {
   name             = "${var.release_name}-kafka"
