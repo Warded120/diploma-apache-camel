@@ -101,9 +101,9 @@ resource "kubernetes_deployment" "outbound_processor" {
               port = 8081
               path = "/observe/health"
             }
-            initial_delay_seconds = 60
+            initial_delay_seconds = 90
             period_seconds        = 30
-            timeout_seconds       = 10
+            timeout_seconds       = 20
             failure_threshold     = 3
           }
 
@@ -124,6 +124,7 @@ resource "kubernetes_deployment" "outbound_processor" {
 
   depends_on = [
     helm_release.kafka,
+    helm_release.metrics_server,
     helm_release.postgresql,
     kubernetes_deployment.schema_registry,
     kubernetes_config_map.app_config,
