@@ -23,9 +23,14 @@ output "inbound_processor_node_port" {
   value       = 30081
 }
 
+output "inbound_processor_health_node_port" {
+  description = "NodePort for inbound-processor REST API (access via minikube IP)"
+  value       = 30082
+}
+
 output "outbound_processor_node_port" {
   description = "NodePort for outbound-processor (access via minikube IP)"
-  value       = 30082
+  value       = 30083
 }
 
 output "minikube_access_hint" {

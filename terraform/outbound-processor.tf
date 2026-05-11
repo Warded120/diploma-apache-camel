@@ -43,7 +43,9 @@ resource "kubernetes_deployment" "outbound_processor" {
 
           port {
             container_port = 8081
+            name           = "health-port"
           }
+
 
           # Inject individual DB keys from secret
           env {
@@ -85,7 +87,6 @@ resource "kubernetes_deployment" "outbound_processor" {
 
           readiness_probe {
             http_get {
-              host = "localhost"
               port = 8081
               path = "/observe/health"
             }
@@ -97,7 +98,6 @@ resource "kubernetes_deployment" "outbound_processor" {
 
           liveness_probe {
             http_get {
-              host = "localhost"
               port = 8081
               path = "/observe/health"
             }
@@ -149,9 +149,10 @@ resource "kubernetes_service" "outbound_processor" {
     }
 
     port {
-      port        = 8080
-      target_port = 8080
-      node_port   = 30082
+      name        = "health-port"
+      port        = 8081
+      target_port = 8081
+      node_port   = 30083
       protocol    = "TCP"
     }
   }

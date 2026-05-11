@@ -38,6 +38,12 @@ resource "kubernetes_deployment" "inbound_processor" {
 
           port {
             container_port = 8080
+            name           = "rest-port"
+          }
+
+          port {
+            container_port = 8090
+            name           = "health-port"
           }
 
           # Sourced from the Kafka Helm release
@@ -53,7 +59,6 @@ resource "kubernetes_deployment" "inbound_processor" {
 
           readiness_probe {
             http_get {
-              host = "localhost"
               port = 8090
               path = "/observe/health"
             }
@@ -65,7 +70,6 @@ resource "kubernetes_deployment" "inbound_processor" {
 
           liveness_probe {
             http_get {
-              host = "localhost"
               port = 8090
               path = "/observe/health"
             }
@@ -114,11 +118,21 @@ resource "kubernetes_service" "inbound_processor" {
     }
 
     port {
+      name = "rest-port"
       port        = 8080
       target_port = 8080
       node_port   = 30081
       protocol    = "TCP"
     }
+
+    port {
+      name = "health-port"
+      port        = 8090
+      target_port = 8090
+      node_port   = 30082
+      protocol    = "TCP"
+    }
+
   }
 
   depends_on = [kubernetes_namespace.diploma]
