@@ -85,8 +85,9 @@ resource "kubernetes_deployment" "outbound_processor" {
 
           readiness_probe {
             http_get {
-              path = "/observe/health/ready"
+              host = "localhost"
               port = 8081
+              path = "/observe/health"
             }
             initial_delay_seconds = 30
             period_seconds        = 10
@@ -96,8 +97,9 @@ resource "kubernetes_deployment" "outbound_processor" {
 
           liveness_probe {
             http_get {
-              path = "/observe/health/live"
+              host = "localhost"
               port = 8081
+              path = "/observe/health"
             }
             initial_delay_seconds = 60
             period_seconds        = 30
